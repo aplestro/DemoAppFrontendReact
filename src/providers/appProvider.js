@@ -19,9 +19,15 @@ export const createChannel = (input) => {
 }
 
 export const requestAplestroUserInfo = () => {
-  axios.post('/requestUserInfo',{
-    userToken: getUserToken()
-  });
+  const message = JSON.stringify({
+    action: 'PERMISSIONS_REQUEST',
+    params: {
+      permissions:[{
+        code: "USER_INFO",
+        userText: "the text where the app explains why it needs the user info"
+      }]
+    }})
+  window.parent.postMessage(message, '*');
 }
 
 export const requestServerUserInfo = async () => {
